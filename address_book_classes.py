@@ -1,6 +1,12 @@
 import pickle
 from datetime import datetime
 from collections import UserDict
+from colorit import *
+colorit.init_colorit()
+
+class Error(Exception):
+    pass
+
 
 
 class Field:
@@ -35,7 +41,7 @@ class Birthday(Field):
     @Field.value.setter
     def value(self, value):
         today = datetime.now().date()
-        birth_date = datetime.strptime(value, '%Y-%m-%d').date()
+        birth_date = datetime.strptime(value, '%Y.%m.%d').date()
         if birth_date > today:
             raise ValueError("Birthday must be less than current year and date.")
         self._value = value
