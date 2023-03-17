@@ -19,6 +19,7 @@ COMMANDS_DICT = {
 def change_input(user_input):
     new_input = user_input
     data = ''
+
     for key, comm in COMMANDS_DICT.items():
         # if user_input.strip().lower().startswith(key): #Цю строчку замінив на наступні дві
         a = list(user_input.strip().split(' '))
@@ -28,6 +29,7 @@ def change_input(user_input):
             break
     if data:
         return command, data
+
 
 
 
