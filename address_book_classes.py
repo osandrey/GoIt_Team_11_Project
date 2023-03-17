@@ -1,3 +1,4 @@
+import re
 import pickle
 from datetime import datetime
 from collections import UserDict
@@ -46,16 +47,45 @@ class Birthday(Field):
             raise ValueError("Birthday must be less than current year and date.")
         self._value = value
 
+class Notes(Field):
+    #@Field.value.setter
+    pass
+
+
+class Email(Field):
+    @Field.value.setter
+    def value(self, value):
+        result = re.findall(r"[a-zA-Z]+[\w.]+@[a-zA-Z]{2,}.[a-zA-Z]{2,}", value)
+        if not result:
+            print('wrong Email address')
+            raise ValueError
+        else:
+            self._value = value
+
+
+class Address(Field):
+    @Field.value.setter
+    def value(self, value):
+        if len(value) > 80:
+            raise ValueError("Too long note")
+        self._value = value
+
+
 
 class Record:
     def __init__(self, name):
         self.name = Name(name)
         self.phones = []
         self.birthday = None
+        self.email = None
+        self.address = None
 
     def get_info(self):
         phones_info = ''
         birthday_info = ''
+        # notes_info = ''
+        email_info = ''
+        address_info = ''
 
         for phone in self.phones:
             phones_info += f'{phone.value}, '
@@ -63,7 +93,16 @@ class Record:
         if self.birthday:
             birthday_info = f' Birthday : {self.birthday.value}'
 
-        return f'{self.name.value} : {phones_info[:-2]}{birthday_info}'
+        if self.email:
+            email_info = f'\nEmail: {self.email.value}'
+
+        #if self.notes:
+
+        if self.address:
+            address_info = f'\nAddress: {self.address.value}'
+
+        return f"{10 * '-'}\n{self.name.value}: {phones_info[:-2]}{birthday_info}" \
+               f"{email_info}{'notes_info'}{address_info}\n{10 * '(-_-)'}"
 
     def add_phone(self, phone):
         self.phones.append(Phone(phone))
@@ -79,6 +118,12 @@ class Record:
         for phone in phones:
             if not self.delete_phone(phone):
                 self.add_phone(phone)
+
+    def add_email(self, email):
+        self.email = Email(email)
+
+    def add_address(self, address):
+        self.address = Address(address)
 
     def add_birthday(self, date):
         self.birthday = Birthday(date)
@@ -102,6 +147,17 @@ class Record:
         )
 
         return (next_birthday.date() - today).days
+
+    def show_contact(self):
+        print(self.name.value.capitalize())
+        for phone in self.phones:
+            print(f"\t{phone.value}")
+        if self.email:
+            print(f"\t{self.email.value}")
+        if self.address:
+            print(f"\t{self.address.value}")
+        if self.birthday:
+            print(f"\t{self.birthday.value}")
 
 
 class AddressBook(UserDict):

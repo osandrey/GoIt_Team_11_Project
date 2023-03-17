@@ -169,6 +169,29 @@ def del_phone_func(data):
         return f'Phone {phone} for {name} contact deleted.'
     return f'{name} contact does not have this number'
 
+@input_error
+def add_email_func():
+    name, email = input('Enter name and Email: ').strip().split(' ')
+    try:
+        record = contacts_dict[name]
+        record.add_email(email)
+        return f'For {name} you added Email: {email}'
+    except ValueError:
+        return f'Email not added'
+
+@input_error
+def add_address_func(data):
+    name, *address = data.strip().split(' ')
+    record = contacts_dict[name]
+    record.add_address(' '.join(address))
+    return f'For {name} you added Address: {" ".join(address)}'
+
+@input_error
+def who_have_birthdays_func():
+    """
+    Показує у кого День народження в вказаному проміжку днів починаючи від сьогодні.
+    """
+    return contacts_dict.show_birthday_contact_name()
 
 @input_error
 def birthday_func(data):
