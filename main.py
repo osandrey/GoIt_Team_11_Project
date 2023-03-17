@@ -1,4 +1,4 @@
-from utils import change_input
+from utils import change_input, greeting
 from address_book_classes import contacts_dict
 from prompt_toolkit import prompt
 from prompt_toolkit.completion import WordCompleter
@@ -21,6 +21,7 @@ word_completer = WordCompleter([
 ])
 
 def main():
+    print(greeting)
     """
     Отримуємо ввід від користувача
     і відправляємо його в середину застосунку на обробку.
