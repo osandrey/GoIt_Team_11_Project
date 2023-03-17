@@ -38,7 +38,7 @@ def main():
             if user_input in [".", "bye", "good bye", "close", "exit", "bruh"]:
                 exit = yes_no_dialog(
                     title='Yes/No dialog example',
-                    text='Do you want to confirm?').run()
+                    text='Do you want to close bot?').run()
                 if exit:
                     print("Bye,see tou soon...")
                     break
