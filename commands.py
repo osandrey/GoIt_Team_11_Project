@@ -1,4 +1,8 @@
-from address_book_classes import contacts_dict, Record
+from address_book_classes import contacts_dict, Record, Error
+from colorit import *
+colorit.init_colorit()
+import re
+
 
 def input_error(function): #Перенис сюди декоратор тут йому буде краще
     """
@@ -21,6 +25,40 @@ def input_error(function): #Перенис сюди декоратор тут й
             return 'Wrong command.'
 
     return wrapper
+
+
+def verify(number):  #перевирка номеру телефона
+        number = re.sub(r"[\-\(\)\+\ a-zA-Zа-яА-я]", "", number)
+        try:
+            if len(number) == 12:
+                number = "+" + number
+            elif len(number) == 10:
+                number = "+38" + number
+            elif len(number) == 9:
+                number = "+380" + number
+            else:
+                number = False
+                raise Error
+        except Error:
+            print(color("\nSomething went wrong\n Try again!\n", Colors.green))
+        
+        if number:
+            return number
+        else:
+            return ""
+
+def verify_date(birth_date: str):
+        try:
+            birthdate = re.findall(r"\d{4}\.\d{2}\.\d{2}", birth_date)
+            if bool(birthdate) == False:
+                raise Error
+        except Error:
+            print(color("\nYou enter wrong date.\nUse this format - YYYY.MM.DD \nTry again!\n", Colors.purple))
+
+        if birthdate:
+            return birthdate[0]
+        else:
+            return ""
 
 
 @input_error

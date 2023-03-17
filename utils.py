@@ -1,5 +1,8 @@
 from commands import (hello_func, exit_func, add_func, change_phone_func, show_func, search_func, del_phone_func,
                       del_func, birthday_func, next_birthday_func)
+from colorit import *
+colorit.init_colorit()
+
 
 COMMANDS_DICT = {
     'hello': hello_func,
@@ -11,8 +14,8 @@ COMMANDS_DICT = {
     'show all': show_func,
     'phone': search_func,
     'delete phone': del_phone_func,
-    'delete': del_func,
-    'birthday': birthday_func,
+    'delete user': del_func,
+    'add birthday': birthday_func,
     'days to birthday': next_birthday_func
 }
 
