@@ -45,8 +45,10 @@ def main():
                     break
                 else:
                     continue
+
             command, data = change_input(user_input)
             print(command(data))
+
     finally:
         contacts_dict.save_contacts_to_file()
 
