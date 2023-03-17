@@ -1,0 +1,78 @@
+from commands import (hello_func, exit_func, add_func, change_phone_func, show_func, search_func, del_phone_func,
+                      del_func, birthday_func, next_birthday_func)
+
+COMMANDS_DICT = {
+    'hello': hello_func,
+    'exit': exit_func,
+    'close': exit_func,
+    'good bye': exit_func,
+    'add': add_func,
+    'change phone': change_phone_func,
+    'show all': show_func,
+    'phone': search_func,
+    'delete phone': del_phone_func,
+    'delete': del_func,
+    'birthday': birthday_func,
+    'days to birthday': next_birthday_func
+}
+
+def change_input(user_input):
+    new_input = user_input
+    data = ''
+    for key, comm in COMMANDS_DICT.items():
+        # if user_input.strip().lower().startswith(key): #Цю строчку замінив на наступні дві
+        a = list(user_input.strip().split(' '))
+        if a[0] == key:
+            command = comm
+            data = user_input.replace(key, "")
+            break
+    if data:
+        return command, data
+
+
+
+def reaction_func(reaction):
+    return COMMANDS_DICT.get(reaction, break_func)
+
+
+def break_func():
+    """
+    Якщо користувач ввів якусь тарабарщину- повертаємо відповідну відповідь
+    :return: Неправильна команда
+    """
+    return 'Wrong enter.'
+
+greeting = """                                                                      
+                               @@@@@@@@@@@@@@@@@@                                   
+                            @@@@@@@@@@@@@@@@@@@@@@@@                            
+                          #@@@@   @@@@@@@@@@@@@@@@@@@@                          
+                          @@@@     @@@@@@@@@@@@@@@@@@@@                         
+                          @@@@@@@@@@@@@@@@@@@@@@@@@@@@@                         
+                          @@@@@@@@@@@@@@@@@@@@@@@@@@@@@                         
+                                        @@@@@@@@@@@@@@@                         
+               @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #@@@@@@@@@@             
+             @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #@@@@@@@@@@@            
+            @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@& &@@@@@@@@@@@@           
+           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  @@@@@@@@@@@@@/          
+           @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  @@@@@@@@@@@@@@@@          
+           @@@@@@@@@@@@@@@@@@                      @@@@@@@@@@@@@@@@@@@          
+           @@@@@@@@@@@@@@@  ,@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@          
+           @@@@@@@@@@@@@@  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@(          
+            @@@@@@@@@@@@  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@           
+             @@@@@@@@@@@  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@            
+               @@@@@@@@@  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@              
+                          @@@@@@@@@@@@@@                                        
+                          @@@@@@@@@@@@@@@@@@@@@@@@@@@@@                         
+                          @@@@@@@@@@@@@@@@@@@@@  .@@@@@                         
+                          @@@@@@@@@@@@@@@@@@@@     @@@%                         
+                           @@@@@@@@@@@@@@@@@@@@% @@@@&                          
+                              @@@@@@@@@@@@@@@@@@@@@   
+
+
+               __    __     _                                 __  
+              / / /\ \ \___| | ___ ___  _ __ ___   ___     _  \ \ 
+              \ \/  \/ / _ \ |/ __/ _ \| '_ ` _ \ / _ \   (_)  | |
+               \  /\  /  __/ | (_| (_) | | | | | |  __/    _   | |
+                \/  \/ \___|_|\___\___/|_| |_| |_|\___|   (_)  | |
+                                                              /_/                                                                                                                                                                                              
+  """
