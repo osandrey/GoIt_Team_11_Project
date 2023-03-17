@@ -22,6 +22,7 @@ word_completer = WordCompleter([
 
 ])
 
+
 def main():
     print(color(greeting,Colors.green))
     """
@@ -47,12 +48,14 @@ def main():
                 else:
                     continue
 
+
             if (len(user_input.split())) == 1:
                 print(color("Please write full command", Colors.red))
                 continue    
 
             result = change_input(user_input)
             print(result)
+
     finally:
         contacts_dict.save_contacts_to_file()
 
