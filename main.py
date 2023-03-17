@@ -20,6 +20,7 @@ word_completer = WordCompleter([
 
 ])
 
+
 def main():
     print(greeting)
     """
@@ -44,9 +45,10 @@ def main():
                     break
                 else:
                     continue
-                
-            result = change_input(user_input)
-            print(result)
+
+            command, data = change_input(user_input)
+            print(command(data))
+
     finally:
         contacts_dict.save_contacts_to_file()
 

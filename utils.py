@@ -19,14 +19,18 @@ COMMANDS_DICT = {
 def change_input(user_input):
     new_input = user_input
     data = ''
-    for key in COMMANDS_DICT:
-        if user_input.strip().lower().startswith(key):
-            new_input = key
-            data = user_input[len(new_input):]
+
+    for key, comm in COMMANDS_DICT.items():
+        # if user_input.strip().lower().startswith(key): #Цю строчку замінив на наступні дві
+        a = list(user_input.strip().split(' '))
+        if a[0] == key:
+            command = comm
+            data = user_input.replace(key, "")
             break
     if data:
-        return reaction_func(new_input)(data)
-    return reaction_func(new_input)()
+        return command, data
+
+
 
 
 def reaction_func(reaction):
