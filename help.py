@@ -59,4 +59,4 @@ I have {pah_com_list['tel_book']}, {pah_com_list['note_book']} and I can {pah_co
             my_table.add_row(["quit, close, goodbye, exit", "This command finish work with your assistant", "quit(close, goodbye, exit)"])
             print(my_table)
 
-pers_assistant_help()
+
