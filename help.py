@@ -5,35 +5,35 @@ def pers_assistant_help():
     pah_com_list = {"tel_book":"TELEPHONE BOOK", "note_book": "NOTE BOOK", "sorted": "SORTED"}
     all_commands = {
         "1":[
-            ["show all", "This command show all contacts in your address book", "show all"],
-            ["add user", "This command add new user in your address book", "add user <FirstName_LastName> <phone>"],
-            ["add phone", "This command add new phone number for existing contact", "add phone <user> <phone>"],
-            ["add email", "This command add email for existing contact", "add email <user> <email>"],
-            ["add birthday", "This command add birthday for existing contact", "add birthday <user> <date>"],
-            ["add adress", "This command add address for existing contact", "add adress <user> <address>"],
-            ["change adress", "This command change address for existing contact", "change adress <user> <new_address>"],
-            ["change email", "This command change email address for existing contact", "change email <user> <new_email>"],
-            ["change birthday", "This command change birthday for existing contact", "change birthday <user> <newBirthday>"],
-            ["find name", "This command find all existing contacts whose names match the search query", "find name <name>"],
-            ["find phone", "This command find existing contacts whose phone match the search query", "find phone <phone>"],
-            ["remove phone", "This command remove phone number for existing contact", "remove phone <user> <phone>"],
-            ["remove birthday", "This command remove birthday for existing contact", "remove birthday <user>"],
-            ["remove email", "This command remove email address for existing contact", "remove email <user> <email>"],
-            ["remove user", "This command remove existing contact and all information about it", "remove user <user>"],
-            ["remove adress", "This command remove existing contact and all information about it", "remove adress <user> <address>"],
-            ["when birthday", "This command show birthday of existing contact", "when birthday <user>"]
+            ["show all", "This command shows all contacts in your address book", "show all"],
+            ["add user", "This command adds a new user in your address book", "add user <FirstName_LastName> <phone>"],
+            ["add phone", "This command adds a new phone number for an existing contact", "add phone <user> <phone>"],
+            ["add email", "This command adds an email for an existing contact", "add email <user> <email>"],
+            ["add birthday", "This command adds a birthday for an existing contact", "add birthday <user> <date>"],
+            ["add adress", "This command adds an address for an existing contact", "add adress <user> <address>"],
+            ["change adress", "This command changes an address for an existing contact", "change adress <user> <new_address>"],
+            ["change email", "This command changes an email address for an existing contact", "change email <user> <new_email>"],
+            ["change birthday", "This command changes a birthday for an existing contact", "change birthday <user> <newBirthday>"],
+            ["find name", "This command finds all existing contacts whose names match the search query", "find name <name>"],
+            ["find phone", "This command finds existing contacts whose phone match the search query", "find phone <phone>"],
+            ["remove phone", "This command removes a phone number for an existing contact", "remove phone <user> <phone>"],
+            ["remove birthday", "This command removes a birthday for an existing contact", "remove birthday <user>"],
+            ["remove email", "This command removes an email address for an existing contact", "remove email <user> <email>"],
+            ["remove user", "This command removes an existing contact and all the information about it", "remove user <user>"],
+            ["remove adress", "This command removes an existing contact and all the information about it", "remove adress <user> <address>"],
+            ["when birthday", "This command shows a birthday of an existing contact", "when birthday <user>"]
         ],
         "2":[
-            ["add or add_note", "This command add new note in your Notepad", "add(add_note) <title> <body> <tags>"],
-            ["edit or edit_note", "This command change existing note in your Notepad", "edit(edit_note) <title>"],
-            ["delete", "This command delete existing note in your Notepad", "delete <title>"],
-            ["find_tags", "This command find existing notes whose tags match the search query", "find_tags <tag>"],
-            ["find", "This command find existing notes whose note(body) match the search query", "find <frase>"],
-            ["show or show_note", "This command show existing note in your Notepad", "show(show_note) <title>"],
-            ["showall", "This command show all existing notes in your Notepad", "showall"],
+            ["add or add_note", "This command adds a new note in your Notepad", "add(add_note) <title> <body> <tags>"],
+            ["edit or edit_note", "This command changes an existing note in your Notepad", "edit(edit_note) <title>"],
+            ["delete", "This command deletes an existing note in your Notepad", "delete <title>"],
+            ["find_tags", "This command finds and sorts existing notes whose tags match the search query", "find_tags <tag>"],
+            ["find", "This command finds existing notes whose note(body) matches the search query", "find <frase>"],
+            ["show or show_note", "This command shows an existing note in your Notepad", "show(show_note) <title>"],
+            ["showall", "This command shows all existing notes in your Notepad", "showall"],
         ],
         "3": [[
-            "sort directory", "This command sort all files in the given directory", "sort directory <path to folder>"
+            "sort directory", "This command sorts all files in the given directory", "sort directory <path to folder>"
         ]]}
     print(f'''I'm your personal assistant.
 I have {pah_com_list['tel_book']}, {pah_com_list['note_book']} and I can {pah_com_list['sorted']} your files in your folder.\n''')
