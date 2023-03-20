@@ -1,7 +1,7 @@
 import functools
-import subprocess
+import os
 import pickle
-import platform
+import subprocess
 import re
 from collections import UserDict
 from typing import Callable
@@ -221,12 +221,10 @@ def get_command(words: str) -> Callable:
 
 def run_app():
 
-    if platform.system() == "Windows":
-        subprocess.run(["start", 'edit_note.txt'], shell=True)
-    elif platform.system() == "Darwin":
-        subprocess.run(["open", 'edit_note.txt'])
-    else:
-        print("Unsupported operating system.")
+    if os.name == "nt":  # For Windows
+        os.startfile('edit_note.txt')
+    else:  # For Mac
+        subprocess.call(["open", 'edit_note.txt'])
 
 @decorator_input
 def show_note(*args:str) -> str:
