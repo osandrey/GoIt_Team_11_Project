@@ -1,6 +1,7 @@
 import functools
 import subprocess
 import pickle
+import platform
 import re
 from collections import UserDict
 from typing import Callable
@@ -40,9 +41,6 @@ class Notepad(UserDict):
             except EOFError:
                 pass 
          
-    def find_note(self):
-        pass
-
     def show_notes_titles(self):
         res =  "\n".join([note for note in notes])
         return color(res,Colors.orange)
@@ -160,14 +158,7 @@ def edit_note(*args) -> str:
 
     return "Done!"
     
-@decorator_input
-def goodbye() -> str:
-    return 'Goodbye!'
 
-@decorator_input
-def show_note(*args:str) -> str:
-    note = notes.data.get(args[0])
-    return note.show_note()
 
 @decorator_input
 def edit(text: str, part) -> str:
@@ -175,7 +166,7 @@ def edit(text: str, part) -> str:
     if user_input:
         with open('edit_note.txt', 'w') as fh:
             fh.write(text)
-        subprocess.Popen(['open', 'edit_note.txt'])
+        run_app()
         mes = ''
         if part == 'tags':
             mes = color("Separate tags with ','",Colors.green)
@@ -210,6 +201,11 @@ def find_tags(*args: str) -> str:
     sorted_dict = sorted(notes_dict, key=lambda k: len(notes_dict[k]), reverse=True)
     return '\n'.join([f"{key}:{notes_dict[key]}" for key in sorted_dict if len(notes_dict[key]) > 0])
 
+@decorator_input
+def goodbye() -> str:
+    return 'Goodbye!'
+
+
 def get_command(words: str) -> Callable:
     
     if words[0] == '':
@@ -222,6 +218,20 @@ def get_command(words: str) -> Callable:
         except (re.error):
             break
     raise KeyError ("This command doesn't exist")
+
+def run_app():
+
+    if platform.system() == "Windows":
+        subprocess.run(["start", 'edit_note.txt'], shell=True)
+    elif platform.system() == "Darwin":
+        subprocess.run(["open", 'edit_note.txt'])
+    else:
+        print("Unsupported operating system.")
+
+@decorator_input
+def show_note(*args:str) -> str:
+    note = notes.data.get(args[0])
+    return note.show_note()
 
 notes = Notepad()
 notes.get_notes('notes.bin')
