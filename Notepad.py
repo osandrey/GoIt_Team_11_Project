@@ -9,6 +9,12 @@ class MyException(Exception):
     pass
 
 class Notepad(UserDict):
+
+    def __getitem__(self, title):
+        if not title in self.data.keys():
+            raise MyException("This article isn't in the Notepad")
+        note = self.data[title]
+        return note
     
     def add_note(self, note) -> str:
         self.data.update({note.title.value:note})
@@ -42,18 +48,29 @@ class Notepad(UserDict):
 class Field:
 
     def __init__(self, value):
+        self.__value = None
         self.value = value
 
 class NoteTag(Field):
     pass
 
 class NoteTitle(Field):
-    pass
+
+    @property
+    def value(self):
+        return self.__value
+
+    @value.setter
+    def value(self, title):
+        if len(title) == 0:
+            raise ValueError("The title wasn't added. It should have at least 1 character.")
+        self.__value = title
 
 class NoteBody(Field):
     pass
 
 class Note:
+    
     def __init__(self, title: NoteTitle, body: NoteBody, tags: list[NoteTag]=None) -> None:
         self.title = title
         self.body = body if body else ''
@@ -93,7 +110,7 @@ def decorator_input(func: Callable) -> Callable:
     return wrapper
 
 @decorator_input
-def add_note() -> str:
+def add_note(*args) -> str:
     title = NoteTitle(input("Enter the title: "))
     if title.value in notes.data.keys():
         raise MyException('This title already exists')
@@ -116,6 +133,7 @@ def edit_note(*args) -> str:
     user_title = input("Enter new title or press 'enter' to skip this step: ")
     if user_title:
         if not user_title in notes.data.keys():
+            notes.data[user_title] = notes.data.pop(title)
             note.edit_title(NoteTitle(user_title))
         else:
             raise MyException('This title already exists.')
@@ -143,7 +161,7 @@ def goodbye() -> str:
     return 'Goodbye!'
 
 @decorator_input
-def show_note(*args):
+def show_note(*args:str) -> str:
     note = notes.data.get(args[0])
     return note.show_note()
 
@@ -161,6 +179,34 @@ def edit(text: str, part) -> str:
         with open('edit_note.txt', 'r') as fh:
             edited_text = fh.read()
         return edited_text
+    
+def find(*args) -> str:
+
+    try:
+        re.match(r'^\s*$', args)
+    except TypeError:
+        args = input("Enter the phrase you want to find: ")
+    notes_list = []
+    for note in notes.data.values():
+        if re.search(args, note.body.value) or re.search(args, note.title.value, flags=re.IGNORECASE):
+            notes_list.append(note.title.value)
+    if len(notes_list) == 0:
+        return "No matches"
+    return '\n'.join([title for title in notes_list])
+    
+@decorator_input  
+def find_tags(*args: str) -> str:
+    if len(args) == 0:
+        return "You didn't enter any tags."
+    all_notes = [note for note in notes.data.values()]
+    notes_dict = {title:[] for title in notes.data.keys()}
+    for arg in args:
+        for note in all_notes:
+            if arg in [tag.value for tag in note.tags]:
+                notes_dict[note.title.value].append(arg)
+    sorted_dict = sorted(notes_dict, key=lambda k: len(notes_dict[k]), reverse=True)
+    return '\n'.join([f"{key}:{notes_dict[key]}" for key in sorted_dict if len(notes_dict[key]) > 0])
+
 
 def get_command(words: str) -> Callable:
     for key in commands_dict.keys():
@@ -175,11 +221,12 @@ def get_command(words: str) -> Callable:
 notes = Notepad()
 notes.get_notes('notes.bin')
 
-commands_dict = {('add',): add_note,
-                 ('edit'): edit_note,
-                 ('show'): show_note,
-                 ('showall',): notes.show_notes_titles,
-                #  ('find',):find,
+commands_dict = {('add', 'add_note'):add_note,
+                 ('edit', 'edit_note'):edit_note,
+                 ('show', 'show_note'):show_note,
+                 ('showall',):notes.show_notes_titles,
+                 ('find_tags',):find_tags,
+                 ('find',):find,
                  ('delete',):delete_note,
                  ('goodbye','close','exit','quit'):goodbye
 }
@@ -201,10 +248,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
 
