@@ -11,17 +11,21 @@ def pers_assistant_help():
             ["add email", "This command adds an email for an existing contact", "add email <user> <email>"],
             ["add birthday", "This command adds a birthday for an existing contact", "add birthday <user> <date>"],
             ["add adress", "This command adds an address for an existing contact", "add adress <user> <address>"],
+            ["add tags", "This command adds tags for existing contact", "add tags <user> <tags>"],
             ["change adress", "This command changes an address for an existing contact", "change adress <user> <new_address>"],
             ["change email", "This command changes an email address for an existing contact", "change email <user> <new_email>"],
             ["change birthday", "This command changes a birthday for an existing contact", "change birthday <user> <newBirthday>"],
             ["find name", "This command finds all existing contacts whose names match the search query", "find name <name>"],
             ["find phone", "This command finds existing contacts whose phone match the search query", "find phone <phone>"],
+            ["find tags", "This command finds existing contacts whose tags match the search query", "find tags <tags>"],
             ["remove phone", "This command removes a phone number for an existing contact", "remove phone <user> <phone>"],
             ["remove birthday", "This command removes a birthday for an existing contact", "remove birthday <user>"],
             ["remove email", "This command removes an email address for an existing contact", "remove email <user> <email>"],
+            ["remove tags", "This command removes tags for existing contact", "remove tags <user> <tags>"],
             ["remove user", "This command removes an existing contact and all the information about it", "remove user <user>"],
             ["remove adress", "This command removes an existing contact and all the information about it", "remove adress <user> <address>"],
-            ["when birthday", "This command shows a birthday of an existing contact", "when birthday <user>"]
+            ["when birthday", "This command shows a birthday of an existing contact", "when birthday <user>"],
+            ["birthdays within", "This command shows which contacts have a birthday during the entered period", "birthdays within <days-must be integer>"]
         ],
         "2":[
             ["add or add_note", "This command adds a new note in your Notepad", "add(add_note) <title> <body> <tags>"],
@@ -50,13 +54,13 @@ I have {pah_com_list['tel_book']}, {pah_com_list['note_book']} and I can {pah_co
         elif user_input in ["1", "2", "3"]:
             my_table = PrettyTable(["Command Name", "Subscribe", "Example"])
             [my_table.add_row(i) for i in all_commands[user_input]]
-            my_table.add_row(["quit, close, goodbye, exit", "This command finish work with your assistant", "quit(close, goodbye, exit)"])
+            my_table.add_row(["quit, close, goodbye, exit", "This command finishes work with your assistant", "quit(close, goodbye, exit)"])
             print(my_table)
         else:
             my_table = PrettyTable(["Command Name", "Subscribe", "Example"])
             all_commands_list = sorted([i for j in list(all_commands.values()) for i in j])
             [my_table.add_row(i) for i in all_commands_list]
-            my_table.add_row(["quit, close, goodbye, exit", "This command finish work with your assistant", "quit(close, goodbye, exit)"])
+            my_table.add_row(["quit, close, goodbye, exit", "This command finishes work with your assistant", "quit(close, goodbye, exit)"])
             print(my_table)
 
 
